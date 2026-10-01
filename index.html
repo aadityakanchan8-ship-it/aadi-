@@ -16,6 +16,20 @@
   <body class="bg-[#080b10] text-[#f1f5f9] selection:bg-teal-500/20 selection:text-teal-300 font-sans antialiased overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Fallback for static hosting (e.g. GitHub Pages root deployment where .tsx cannot be executed by browser):
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          var root = document.getElementById('root');
+          if (root && root.children.length === 0) {
+            var path = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '');
+            if (!path.endsWith('/docs') && !path.endsWith('/dist')) {
+              window.location.replace(path + '/docs/' + window.location.search + window.location.hash);
+            }
+          }
+        }, 600);
+      });
+    </script>
   </body>
 </html>
 
